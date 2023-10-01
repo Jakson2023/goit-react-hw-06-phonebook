@@ -1,20 +1,20 @@
 // import { useState } from 'react';
 // import { nanoid } from 'nanoid';
-// import { TitleText } from './Phonebook.styled';
-// import { Wrapper } from './Phonebook.styled';
-// import { ContactForm } from './ContactForm/ContactForm';
+import { TitleText } from './Phonebook.styled';
+import { Wrapper } from './Phonebook.styled';
+import { ContactForm } from './ContactForm/ContactForm';
 // import { ContactList } from './ContactList/ContactList';
-// import { Filter } from './Filter/Filter';
-// import { Title } from './Phonebook.styled';
-// import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
+import { Filter } from './Filter/Filter';
+import { Title } from './Phonebook.styled';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/store';
 export const App = () => {
   // const [contacts, setContacts] = useState([]);
   // const [search, setSearch] = useState('');
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.app.contacts);
 
-  const contactState = useSelector(state => state.contacts);
-  console.log(contactState);
   // useEffect(() => {
   //   const savedData = localStorage.getItem('item');
   //   if (savedData !== null) {
@@ -22,9 +22,9 @@ export const App = () => {
   //   }
   // }, []);
 
-  // useEffect(() => {
-  //   localStorage.setItem('item', JSON.stringify(contacts));
-  // }, [contacts]);
+  useEffect(() => {
+    localStorage.setItem('item', JSON.stringify(contacts));
+  }, [contacts]);
 
   // const addContact = newContact => {
   //   const contactInList = contacts.find(
@@ -37,9 +37,9 @@ export const App = () => {
   //   }
   // };
 
-  // const inputSearch = e => {
-  //   setSearch(e.target.value);
-  // };
+  const inputSearch = e => {
+    console.log(e);
+  };
 
   // const filteredContacts = () => {
   //   return contacts.filter(contact =>
@@ -50,13 +50,13 @@ export const App = () => {
   //   setContacts(prevItem => prevItem.filter(item => item.id !== contact));
   // };
 
-  // return (
-  //   <Wrapper>
-  //     <Title>Phonebook</Title>
-  //     <ContactForm onAdd={addContact} />
-  //     <Filter onSearch={inputSearch} />
-  //     <TitleText>Contacts</TitleText>
-  //     <ContactList onFilter={filteredContacts()} onDelete={deleteContact} />
-  //   </Wrapper>
-  // );
+  return (
+    <Wrapper>
+      <Title>Phonebook</Title>
+      <ContactForm onAdd={() => dispatch(addContact(10))} />
+      <Filter onSearch={inputSearch} />
+      <TitleText>Contacts</TitleText>
+      {/* <ContactList onFilter={filteredContacts()} onDelete={deleteContact} /> */}
+    </Wrapper>
+  );
 };

@@ -1,5 +1,12 @@
 import { createStore } from 'redux';
 import { devToolsEnhancer } from '@redux-devtools/extension';
+
+export const addContact = input => {
+  return {
+    type: 'app/addContact',
+    payload: input,
+  };
+};
 const rootReducer = (state = initialState, action) => {
   return state;
 };
