@@ -5,11 +5,16 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { Title } from './Phonebook.styled';
-import { deleteContact } from 'redux/store';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/store';
-import { inputFilteredContacts } from 'redux/store';
-import { getLocalStorage } from 'redux/store';
+
+import {
+  inputFilteredContacts,
+  getLocalStorage,
+  addContact,
+  deleteContact,
+} from 'redux/store';
+
 import { useEffect } from 'react';
 export const App = () => {
   const dispatch = useDispatch();
