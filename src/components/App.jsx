@@ -21,15 +21,12 @@ export const App = () => {
   const filter = useSelector(state => state.filter);
 
   useEffect(() => {
-
-
     const savedData = localStorage.getItem('item');
-
     if (savedData !== null) {
       dispatch(getLocalStorage(JSON.parse(savedData)));
     }
   }, [dispatch]);
-  if (contacts.length !== 0){
+  if (contacts.length !== 0) {
     localStorage.setItem('item', JSON.stringify(contacts));
   }
 

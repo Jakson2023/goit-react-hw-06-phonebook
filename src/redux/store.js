@@ -1,39 +1,33 @@
-import { createStore } from 'redux';
-import { devToolsEnhancer } from '@redux-devtools/extension';
+import { configureStore } from '@reduxjs/toolkit';
+
+import { createAction, createReducer } from '@reduxjs/toolkit';
+
 
 const initialState = {
   contacts: [],
   filter: '',
 };
 
-export const getLocalStorage = data => {
-  return {
-    type: 'app/getLocalStorage',
-    payload: data,
-  };
-};
 
-export const addContact = input => {
-  return {
-    type: 'app/addContact',
-    payload: input,
-  };
-};
 
-export const deleteContact = contact => {
-  return {
-    type: 'app/deleteContact',
-    payload: contact,
-  };
-};
 
-export const inputFilteredContacts = input => {
-  return {
-    type: 'app/filteredContacts',
-    payload: input,
-  };
-};
 
+export const getLocalStorage =createAction('app/getLocalStorage');
+
+export const addContact = createAction ('app/addContact');
+
+export const deleteContact = createAction('app/deleteContact');
+
+export const inputFilteredContacts = createAction('app/inputFilteredContacts')
+
+
+
+export const rootReducer1 = createReducer(initialState, builder => builder
+  .addCase(getLocalStorage, (state, action)=>{})
+  .addCase (addContact, (state, action)=>{})
+  .addCase(deleteContact, (state, action)=>{})
+  .addCase (inputFilteredContacts,(state, action)=>{})
+)
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'app/getLocalStorage':
@@ -56,7 +50,7 @@ const rootReducer = (state = initialState, action) => {
         contacts: action.payload,
       };
 
-    case 'app/filteredContacts':
+    case 'app/inputFilteredContacts':
       return {
         ...state,
         filter: action.payload,
@@ -67,5 +61,10 @@ const rootReducer = (state = initialState, action) => {
   }
 };
 
-const enhancer = devToolsEnhancer();
-export const store = createStore(rootReducer, enhancer);
+
+export const store = configureStore ({
+  reducer: rootReducer
+})
+
+
+
