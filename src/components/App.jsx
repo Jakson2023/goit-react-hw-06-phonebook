@@ -21,13 +21,20 @@ export const App = () => {
   const filter = useSelector(state => state.filter);
 
   useEffect(() => {
+
+
     const savedData = localStorage.getItem('item');
 
     if (savedData !== null) {
       dispatch(getLocalStorage(JSON.parse(savedData)));
     }
   }, [dispatch]);
-  localStorage.setItem('item', JSON.stringify(contacts));
+  if (contacts.length !== 0){
+    localStorage.setItem('item', JSON.stringify(contacts));
+  }
+
+
+
   const addNewContact = newContact => {
     const contactInList = contacts.find(
       contact =>
