@@ -13,8 +13,10 @@ export const App = () => {
   // const [contacts, setContacts] = useState([]);
   // const [search, setSearch] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.app.contacts);
-
+  const contacts = useSelector(state => state.contacts);
+const filter = useSelector(state => state.filter);
+console.log(contacts);
+console.log(filter);
   // useEffect(() => {
   //   const savedData = localStorage.getItem('item');
   //   if (savedData !== null) {
@@ -38,7 +40,7 @@ export const App = () => {
   // };
 
   const inputSearch = e => {
-    console.log(e);
+    console.log(e.taret.value);
   };
 
   // const filteredContacts = () => {
@@ -53,7 +55,7 @@ export const App = () => {
   return (
     <Wrapper>
       <Title>Phonebook</Title>
-      <ContactForm onAdd={() => dispatch(addContact(10))} />
+      <ContactForm onAdd={() => dispatch(addContact())} />
       <Filter onSearch={inputSearch} />
       <TitleText>Contacts</TitleText>
       {/* <ContactList onFilter={filteredContacts()} onDelete={deleteContact} /> */}
