@@ -51,6 +51,7 @@ export const App = () => {
   };
 
   const filteredContacts = () => {
+    
     return contacts.filter(
       contact =>
         contact.name &&

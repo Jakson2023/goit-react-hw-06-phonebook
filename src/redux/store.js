@@ -8,35 +8,34 @@ const initialState = {
   filter: '',
 };
 
-
-
-
-
 export const getLocalStorage =createAction('app/getLocalStorage');
-
 export const addContact = createAction ('app/addContact');
-
 export const deleteContact = createAction('app/deleteContact');
-
 export const inputFilteredContacts = createAction('app/inputFilteredContacts')
-
-
 
 export const rootReducer = createReducer(initialState, builder => builder
   .addCase(getLocalStorage, (state, action)=>{
-    state.contacts+=action.payload})
+    state.contacts=action.payload})
   .addCase (addContact, (state, action)=>{
-    const newContact = action.payload;
-      const updContacts = [...state.contacts, newContact];
-      state.contacts+=updContacts
+      state.contacts=[...state.contacts, action.payload]
   })
   .addCase(deleteContact, (state, action)=>{
-    state.contacts+=action.payload
+    state.contacts=action.payload
   })
   .addCase (inputFilteredContacts,(state, action)=>{
-    state.filter+=action.payload
+    state.filter=action.payload
   })
 )
+
+
+
+export const store = configureStore ({
+  reducer: rootReducer
+})
+
+
+
+
 // const rootReducer = (state = initialState, action) => {
 //   switch (action.type) {
 //     case 'app/getLocalStorage':
@@ -69,11 +68,3 @@ export const rootReducer = createReducer(initialState, builder => builder
 //       return state;
 //   }
 // };
-
-
-export const store = configureStore ({
-  reducer: rootReducer
-})
-
-
-
