@@ -1,9 +1,9 @@
-import { InputForm } from 'components/Phonebook.styled';
-import { StyledForm } from 'components/Phonebook.styled';
-import { ButtonAdd } from 'components/Phonebook.styled';
+import { nanoid } from 'nanoid';
+import { InputForm, ButtonAdd, StyledForm } from 'components/Phonebook.styled';
 import { Formik, Field, ErrorMessage } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 import * as Yup from 'yup';
-
 const PhonebookSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, 'Too Short!')
@@ -23,14 +23,31 @@ const PhonebookSchema = Yup.object().shape({
     ),
 });
 
-export const ContactForm = ({ onAdd }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.contacts);
+
+  const addNewContact = newContact => {
+    const contactInList = contacts.find(
+      contact =>
+        contact.name &&
+        newContact.name &&
+        contact.name.toLowerCase() === newContact.name.toLowerCase()
+    );
+    if (contactInList) {
+      alert(`${contactInList.name} is already in contacts`);
+    } else {
+      dispatch(addContact({ id: nanoid(), ...newContact }));
+    }
+  };
+
   return (
     <InputForm>
       <Formik
         initialValues={{ name: '', number: '' }}
         validationSchema={PhonebookSchema}
         onSubmit={(values, { resetForm }) => {
-          onAdd(values);
+          addNewContact(values);
           resetForm();
         }}
       >
