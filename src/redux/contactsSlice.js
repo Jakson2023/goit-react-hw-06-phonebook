@@ -4,9 +4,6 @@ export const slice = createSlice({
   name: 'contacts',
   initialState: { contacts: [] },
   reducers: {
-    getLocalStorage(state, action) {
-      state.contacts = action.payload;
-    },
     addContact(state, action) {
       state.contacts = [...state.contacts, action.payload];
     },
@@ -16,5 +13,5 @@ export const slice = createSlice({
   },
 });
 
-export const { getLocalStorage, addContact, deleteContact } = slice.actions;
+export const { addContact, deleteContact } = slice.actions;
 export const contactsReducer = slice.reducer;

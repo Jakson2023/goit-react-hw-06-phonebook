@@ -7,27 +7,12 @@ import { Filter } from './Filter/Filter';
 import { Title } from './Phonebook.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { inputFilteredContacts } from 'redux/filterSlice';
-import {
-  getLocalStorage,
-  addContact,
-  deleteContact,
-} from 'redux/contactsSlice';
+import { addContact, deleteContact } from 'redux/contactsSlice';
 
-import { useEffect } from 'react';
 export const App = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.contacts);
   const filters = useSelector(state => state.filter.filter);
-
-  useEffect(() => {
-    const savedData = localStorage.getItem('item');
-    if (savedData !== null) {
-      dispatch(getLocalStorage(JSON.parse(savedData)));
-    }
-  }, [dispatch]);
-  if (contacts.length !== 0) {
-    localStorage.setItem('item', JSON.stringify(contacts));
-  }
 
   const addNewContact = newContact => {
     const contactInList = contacts.find(
